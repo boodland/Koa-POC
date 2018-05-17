@@ -25,7 +25,7 @@ describe('Server', function() {
 
   });
 
-  describe('Run server app', function() {
+  describe('Run Server App', function() {
 
     use(require('chai-http'));
     const webServer = serverApp.run();
