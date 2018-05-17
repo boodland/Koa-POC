@@ -1,30 +1,22 @@
 import * as Koa from 'koa';
+import { Server } from 'http';
 
 export class ServerApp {
 
-    private app = new Koa();
+    private app: Koa;
     private port: number;
     
     constructor(port: number = 3000) {
+        this.app = new Koa()
         this.port = port
     }
 
-    public initialize(): void {
-        this.app.use(async (ctx) => {
-            ctx.body = {
-                status: 'success',
-                message: 'hello, world!'
-            };
-        });
-    }
-
-    public run(): void {
-        this.app.listen(this.port, () => {
+    public run(): Server {
+        
+        const server = this.app.listen(this.port, () => {
             console.log(`Server listening on port: ${this.port}`);
         });
+
+        return server;
     }
 }
-
-const server = new ServerApp();
-server.initialize();
-server.run();
