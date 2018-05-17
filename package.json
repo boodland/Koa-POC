@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Proof Of Concept of a Koa Web Application/API",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/server/index.ts",
+    "start": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/main.ts",
     "test": "mocha  -r ts-node/register ./src/**/*.test.ts"
   },
   "devDependencies": {
