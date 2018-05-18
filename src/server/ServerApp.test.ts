@@ -1,6 +1,6 @@
 import { should, expect, use, request } from 'chai';
 
-import ServerApp, { IServer } from './index';
+import ServerApp from './ServerApp';
 
 const port = 3001
 const serverApp = new ServerApp();
@@ -26,7 +26,7 @@ describe('Server', function() {
   describe('Run Server App', function() {
 
     use(require('chai-http'));
-    const server : IServer = serverApp.run(port);
+    const server = serverApp.run(port);
     
     it(`should run on localhost:${port}`, function(done) {
       request(`http://localhost:${port}`)
