@@ -1,11 +1,9 @@
-import { ServerApp } from './index';
-
-import 'mocha'
+import ServerApp from './serverApp';
 import { should, expect, use, request } from 'chai';
+import IServer from './IServer';
 
-process.env.NODE_ENV = 'test';
 const port = 3001
-const serverApp = new ServerApp(port);
+const serverApp = new ServerApp();
 
 after(function(done) {
   done();
@@ -28,7 +26,7 @@ describe('Server', function() {
   describe('Run Server App', function() {
 
     use(require('chai-http'));
-    const webServer = serverApp.run();
+    const server : IServer = serverApp.run(port);
     
     it(`should run on localhost:${port}`, function(done) {
       request(`http://localhost:${port}`)
@@ -41,13 +39,9 @@ describe('Server', function() {
     });
 
     after(function() {
-      webServer.close();
+      server.close();
     })
 
   });
 
 });
-
-
-
-
