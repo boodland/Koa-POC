@@ -1,6 +1,6 @@
-import ServerApp from './serverApp';
 import { should, expect, use, request } from 'chai';
-import IServer from './IServer';
+
+import ServerApp, { IServer } from './index';
 
 const port = 3001
 const serverApp = new ServerApp();

@@ -1,4 +1,4 @@
-import ServerApp  from './server/ServerApp'
+import ServerApp, { IServer }  from './server/index'
 
-const serverApp = new ServerApp();
-const server = serverApp.run();
+const serverApp : ServerApp = new ServerApp();
+const server : IServer = serverApp.run();
