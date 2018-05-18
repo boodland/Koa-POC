@@ -1,8 +1,6 @@
 import { Server } from 'http';
 
-import IServer from './IServer'
-
-export default class HttpServer implements IServer {
+export default class WebServer {
 
     private server: Server;
 
