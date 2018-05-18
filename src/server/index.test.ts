@@ -5,7 +5,7 @@ import { should, expect, use, request } from 'chai';
 
 process.env.NODE_ENV = 'test';
 const port = 3001
-const serverApp = new ServerApp(3001);
+const serverApp = new ServerApp(port);
 
 after(function(done) {
   done();
@@ -30,8 +30,8 @@ describe('Server', function() {
     use(require('chai-http'));
     const webServer = serverApp.run();
     
-    it('should run on localhost:3001', function(done) {
-      request('http://localhost:3001')
+    it(`should run on localhost:${port}`, function(done) {
+      request(`http://localhost:${port}`)
       .get('/')
       .end(function(err, res) {
         expect(err).to.be.null;
