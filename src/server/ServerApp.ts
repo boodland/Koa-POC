@@ -1,6 +1,6 @@
 import * as Koa from 'koa';
 
-import WebServer from './WebServer';
+import HttpServer from './HttpServer';
 
 export default class ServerApp {
 
@@ -10,8 +10,8 @@ export default class ServerApp {
         this.app = new Koa()
     }
 
-    run(port: number = 3000) : WebServer {
+    run(port: number = 3000) : HttpServer {
         const server = this.app.listen(port)
-        return new WebServer(server);
+        return new HttpServer(server);
     }
 }

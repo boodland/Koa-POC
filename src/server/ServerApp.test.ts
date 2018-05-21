@@ -1,7 +1,7 @@
 import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
-import WebServer from './WebServer';
+import WebServer from './HttpServer';
 
 const port = 3001
 const serverApp = new ServerApp();

@@ -1,6 +1,6 @@
 import { Server } from 'http';
 
-export default class WebServer {
+export default class HttpServer {
 
     private server: Server;
 
