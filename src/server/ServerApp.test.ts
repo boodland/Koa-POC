@@ -1,7 +1,6 @@
-import { should, expect, use, request } from 'chai';
+import { should, expect } from 'chai';
 
 import ServerApp from './ServerApp';
-import WebServer from './HttpServer';
 
 const port = 3001
 const serverApp = new ServerApp();
@@ -18,30 +17,11 @@ describe('Server', function() {
       should().exist(serverApp);
     });
 
-  });
-
-  describe('Run Server App', function() {
-
-    use(require('chai-http'));
-    const server = serverApp.run(port);
-    
-    it(`should run on localhost:${port}`, function(done) {
-      request(`http://localhost:${port}`)
-      .get('/')
-      .end(function(err, res) {
-        expect(err).to.be.null;
-        expect(res).to.have.status(404);
-        done()
-      })
+    it('should implement IRunnable', function() {
+      expect(serverApp).to.respondsTo('getRunnerHandler')
+      const runnableHandler = serverApp.getRunnerHandler();
+      expect(runnableHandler).to.be.a('function');
     });
-
-    it('expect to be WebServer instance', function() {
-      expect(server).to.be.an.instanceof(WebServer)
-    });
-
-    after(function() {
-      server.close();
-    })
 
   });
 

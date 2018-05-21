@@ -1,4 +1,5 @@
-import ServerApp  from './server/index'
+import ServerApp, { HttpServer }  from './server/index'
 
 const serverApp : ServerApp = new ServerApp();
-serverApp.run();
+const server = new HttpServer(serverApp);
+server.run();

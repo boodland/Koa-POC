@@ -1,8 +1,9 @@
 import * as Koa from 'koa';
 
-import HttpServer from './HttpServer';
+import { RunnableHandler } from './ServerTypes';
+import { IRunnable } from './IRunnable';
 
-export default class ServerApp {
+export default class ServerApp implements IRunnable {
 
     private app: Koa;
     
@@ -10,8 +11,7 @@ export default class ServerApp {
         this.app = new Koa()
     }
 
-    run(port: number = 3000) : HttpServer {
-        const server = this.app.listen(port)
-        return new HttpServer(server);
+    getRunnerHandler(): RunnableHandler {
+        return this.app.callback();
     }
 }
