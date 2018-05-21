@@ -1,6 +1,7 @@
 import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
+import WebServer from './WebServer';
 
 const port = 3001
 const serverApp = new ServerApp();
@@ -15,10 +16,6 @@ describe('Server', function() {
     
     it('should exists', function() {
       should().exist(serverApp);
-    });
-
-    it('expect to be ServerApp instance', function() {
-      expect(serverApp).to.be.an.instanceof(ServerApp)
     });
 
   });
@@ -36,6 +33,10 @@ describe('Server', function() {
         expect(res).to.have.status(404);
         done()
       })
+    });
+
+    it('expect to be WebServer instance', function() {
+      expect(server).to.be.an.instanceof(WebServer)
     });
 
     after(function() {
