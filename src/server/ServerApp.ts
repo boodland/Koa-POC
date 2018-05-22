@@ -1,17 +1,18 @@
 import * as Koa from 'koa';
 
-import { RunnableHandler } from './ServerTypes';
-import { IRunnable } from './IRunnable';
+import { Server } from 'http';
 
-export default class ServerApp implements IRunnable {
+export default class ServerApp {
 
     private app: Koa;
+    private server: Server;
     
     constructor() {
         this.app = new Koa()
     }
 
-    getRunnerHandler(): RunnableHandler {
-        return this.app.callback();
+    run(port: number = 3000): Server {
+        this.server = this.app.listen(port)
+        return this.server;
     }
 }

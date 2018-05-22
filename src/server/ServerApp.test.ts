@@ -1,4 +1,4 @@
-import { should, expect } from 'chai';
+import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
 
@@ -17,11 +17,26 @@ describe('Server', function() {
       should().exist(serverApp);
     });
 
-    it('should implement IRunnable', function() {
-      expect(serverApp).to.respondsTo('getRunnerHandler')
-      const runnableHandler = serverApp.getRunnerHandler();
-      expect(runnableHandler).to.be.a('function');
+  });
+
+  describe('Run Server App', function() {
+
+    use(require('chai-http'));
+    const server = serverApp.run(port);
+    
+    it(`should run on localhost:${port}`, function(done) {
+      request(`http://localhost:${port}`)
+      .get('/')
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res).to.have.status(404);
+        done();
+      })
     });
+
+    after(function() {
+      server.close();
+    })
 
   });
 
