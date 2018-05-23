@@ -19,6 +19,8 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
-    "koa": "^2.5.1"
+    "@types/koa-router": "^7.0.28",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0"
   }
 }
