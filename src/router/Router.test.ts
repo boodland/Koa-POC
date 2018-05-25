@@ -6,7 +6,7 @@ after(function(done) {
     done();
 });
 
-describe('Server', function() {
+describe('Router', function() {
 
     const router = new Router();
 
