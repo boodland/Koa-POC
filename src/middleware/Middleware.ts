@@ -4,7 +4,6 @@ type MiddlewareHandler = (options?: any) => MiddlewareFunction;
 
 export default class Middleware {
 
-    private name: string;
     private handler: MiddlewareHandler;
 
     constructor (handler: MiddlewareHandler) {
