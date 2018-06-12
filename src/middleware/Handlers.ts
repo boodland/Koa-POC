@@ -3,6 +3,7 @@ type MiddlewareHandler = (options?: any) => MiddlewareFunction;
 
 const authenticated: MiddlewareHandler = (message: string = 'The user has been authenticated\n') => {
     return async function random(ctx, next) {
+        if (!ctx.body) ctx.body = '';
         ctx.body += message
         await next();
     };
@@ -10,6 +11,7 @@ const authenticated: MiddlewareHandler = (message: string = 'The user has been a
   
 const reverse: MiddlewareHandler = (text: string = 'backwards') => {
     return async function backwards(ctx, next) {
+        if (!ctx.body) ctx.body = '';
         ctx.body += `Reverse of ${text} is ${text.split("").reverse().join("")}\n`
         await next();     
     }
@@ -17,6 +19,7 @@ const reverse: MiddlewareHandler = (text: string = 'backwards') => {
   
 const piPower: MiddlewareHandler = (exponent: number = 1) => {
   return async function piPower(ctx, next) {
+        if (!ctx.body) ctx.body = '';
         ctx.body += `Pi to power ${exponent}=${Math.pow(Math.PI, exponent)}`;
     }
 };
