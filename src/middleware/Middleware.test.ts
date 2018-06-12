@@ -1,7 +1,7 @@
 import { should, expect, } from 'chai';
 
 import Middleware, { MiddlewareHandler } from './Middleware';
-import { Context, BaseContext } from 'koa';
+import { Context } from 'koa';
 
 after(function(done) {
     done();
