@@ -1,6 +1,4 @@
-import { Middleware as MiddlewareFunction } from 'koa'
-
-type MiddlewareHandler = (options?: any) => MiddlewareFunction;
+import { MiddlewareHandler, MiddlewareFunction } from './Handlers';
 
 export default class Middleware {
 
