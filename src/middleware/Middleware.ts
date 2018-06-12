@@ -5,13 +5,15 @@ type MiddlewareHandler = (options?: any) => MiddlewareFunction;
 export default class Middleware {
 
     private handler: MiddlewareHandler;
+    private options: any;
 
-    constructor (handler: MiddlewareHandler) {
+    constructor (handler: MiddlewareHandler, options?: any) {
         this.handler = handler;
+        this.options = options;
     };
 
-    getFunction(options?: any) : MiddlewareFunction {
-        return this.handler(options);
+    getHandler() : MiddlewareFunction {
+        return this.handler(this.options);
     };
 };
 

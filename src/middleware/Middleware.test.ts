@@ -9,8 +9,8 @@ after(function(done) {
 
 describe('Middleware', function() {
     
-    const message = "Hello World!"
-    const fooHandler: MiddlewareHandler = (options=message) => {
+    const defaultMessage = "Hello World!"
+    const fooHandler: MiddlewareHandler = (options=defaultMessage) => {
         
         const configuration = options;
         
@@ -21,24 +21,49 @@ describe('Middleware', function() {
             await next();
         };
     }
-    const middleware = new Middleware(fooHandler);
+    
+    describe('Create Middleware with default message', function() {
 
-    describe('Create Middleware', function() {
+        const middleware = new Middleware(fooHandler);
         
         it('should exists', function() {
             should().exist(middleware);
         });
 
         
-        it(`should set message to ${message}`, async function() {
+        it(`should set message to ${defaultMessage}`, async function() {
             
             let mock = <Context>{};
             const noop = (): Promise<any> => { return };
             
-            const handler = middleware.getFunction();
+            const handler = middleware.getHandler();
             expect(handler).to.be.a('function');
             await handler(mock, noop)
-            should().equal(mock.state.message, message);
+            should().equal(mock.state.message, defaultMessage);
+
+        });
+
+    });
+
+    describe('Create Middleware with custom message', function() {
+
+        const customMessage= "This is a custom message";
+        const middleware = new Middleware(fooHandler, customMessage);
+        
+        it('should exists', function() {
+            should().exist(middleware);
+        });
+
+        
+        it(`should set message to ${customMessage}`, async function() {
+            
+            let mock = <Context>{};
+            const noop = (): Promise<any> => { return };
+            
+            const handler = middleware.getHandler();
+            expect(handler).to.be.a('function');
+            await handler(mock, noop)
+            should().equal(mock.state.message, customMessage);
 
         });
 
