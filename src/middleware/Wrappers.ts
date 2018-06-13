@@ -1,7 +1,6 @@
 import { Middleware as MiddlewareHandler } from 'koa'
-type MiddlewareWrapper = (...options: any[]) => MiddlewareHandler;
 
-const authenticated: MiddlewareWrapper = (message: string = 'The user has been authenticated\n') => {
+const authenticated = (message: string = 'The user has been authenticated\n'): MiddlewareHandler => {
     return async function random(ctx, next) {
         if (!ctx.body) ctx.body = '';
         ctx.body += message
@@ -9,7 +8,7 @@ const authenticated: MiddlewareWrapper = (message: string = 'The user has been a
     };
 };
   
-const reverse: MiddlewareWrapper = (text: string = 'backwards') => {
+const reverse = (text: string = 'backwards'): MiddlewareHandler => {
     return async function backwards(ctx, next) {
         if (!ctx.body) ctx.body = '';
         ctx.body += `Reverse of ${text} is ${text.split("").reverse().join("")}\n`
@@ -17,11 +16,11 @@ const reverse: MiddlewareWrapper = (text: string = 'backwards') => {
     }
 };
   
-const piPower: MiddlewareWrapper = (exponent: number = 1) => {
+const piPower = (exponent: number = 1): MiddlewareHandler => {
   return async function piPower(ctx, next) {
         if (!ctx.body) ctx.body = '';
         ctx.body += `Pi to power ${exponent}=${Math.pow(Math.PI, exponent)}`;
     }
 };
 
-export { MiddlewareWrapper, MiddlewareHandler, authenticated, piPower, reverse }
+export { MiddlewareHandler, authenticated, piPower, reverse }
