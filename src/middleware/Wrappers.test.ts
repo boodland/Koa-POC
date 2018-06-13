@@ -1,6 +1,6 @@
 import { should, expect, } from 'chai';
 
-import { authenticated, reverse, piPower } from './Handlers';
+import { authenticated, reverse, piPower } from './Wrappers';
 import { Context } from 'koa';
 
 after(function(done) {

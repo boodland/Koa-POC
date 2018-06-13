@@ -2,7 +2,7 @@ import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
 import Middleware from '../middleware/Middleware';
-import { authenticated, reverse, piPower } from '../middleware/Handlers';
+import { authenticated, reverse, piPower } from '../middleware/Wrappers';
 
 
 describe('Server', function() {

@@ -1,4 +1,4 @@
-import { MiddlewareWrapper, MiddlewareHandler } from './Handlers';
+import { MiddlewareWrapper, MiddlewareHandler } from './Wrappers';
 
 export default class Middleware {
 
