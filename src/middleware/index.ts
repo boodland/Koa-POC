@@ -1,5 +1,3 @@
-import Middleware from './Middleware';
-import { authenticated, piPower, reverse } from './Wrappers';
+import { MiddlewareHandler, authenticated, piPower, reverse } from './Wrappers';
 
-export default Middleware;
-export {authenticated, piPower, reverse }
+export {MiddlewareHandler, authenticated, piPower, reverse }

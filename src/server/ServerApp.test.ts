@@ -1,7 +1,6 @@
 import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
-import Middleware from '../middleware/Middleware';
 import { authenticated, reverse, piPower } from '../middleware/Wrappers';
 
 
@@ -50,7 +49,7 @@ describe('Server With Middlewares', function() {
   describe('Run Server App With Authenticated Middleware', function() {
     const port= 3002;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(new Middleware(authenticated))
+    serverMiddlewareApp.use(authenticated())
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);
@@ -80,8 +79,8 @@ describe('Server With Middlewares', function() {
   describe('Run Server App With Authenticated and Reverse Middleware', function() {
     const port= 3003;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(new Middleware(authenticated))
-    serverMiddlewareApp.use(new Middleware(reverse))
+    serverMiddlewareApp.use(authenticated())
+    serverMiddlewareApp.use(reverse())
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);
@@ -111,9 +110,9 @@ describe('Server With Middlewares', function() {
   describe('Run Server App With Authenticated and PiPower but not Reverse Middleware', function() {
     const port= 3004;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(new Middleware(authenticated))
-    serverMiddlewareApp.use(new Middleware(piPower))
-    serverMiddlewareApp.use(new Middleware(reverse))
+    serverMiddlewareApp.use(authenticated())
+    serverMiddlewareApp.use(piPower())
+    serverMiddlewareApp.use(reverse())
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);

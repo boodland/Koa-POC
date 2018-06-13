@@ -1,7 +1,7 @@
 import * as Koa from 'koa';
 
 import { Server } from 'http';
-import Middleware from '../middleware/Middleware';
+import { MiddlewareHandler } from '../middleware/index';
 
 export default class ServerApp {
 
@@ -12,9 +12,9 @@ export default class ServerApp {
         this.app = new Koa()
     }
 
-    use(...middlewares: Middleware[]) {
+    use(...middlewares: MiddlewareHandler[]) {
         middlewares.forEach(middleware => {
-            this.app.use(middleware.getHandler());
+            this.app.use(middleware);
         });
     }
 

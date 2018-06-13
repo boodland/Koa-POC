@@ -1,5 +1,5 @@
 import { Middleware as MiddlewareHandler } from 'koa'
-type MiddlewareWrapper = (options?: any) => MiddlewareHandler;
+type MiddlewareWrapper = (...options: any[]) => MiddlewareHandler;
 
 const authenticated: MiddlewareWrapper = (message: string = 'The user has been authenticated\n') => {
     return async function random(ctx, next) {
