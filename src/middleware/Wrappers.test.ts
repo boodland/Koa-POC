@@ -13,13 +13,16 @@ describe('Handlers', function() {
         
         it('should be a function', function() {
             expect(authenticated).to.be.a('function');
+            const handler = authenticated()
+            expect(handler).to.be.a('function');
+            expect(handler.name).to.not.be.empty;
         });
 
         it(`should set body context to the default message`, async function() {
             const message = 'The user has been authenticated\n';
             let mock = <Context>{};
             const noop = (): Promise<any> => { return };
-            await authenticated()(mock, noop)
+            await authenticated()(mock, noop);
             should().equal(mock.body, message);
         });
 
@@ -37,6 +40,9 @@ describe('Handlers', function() {
         
         it('should be a function', function() {
             expect(reverse).to.be.a('function');
+            const handler = reverse()
+            expect(handler).to.be.a('function');
+            expect(handler.name).to.not.be.empty;
         });
 
         it(`should set body context to the reversed default text`, async function() {
@@ -60,7 +66,10 @@ describe('Handlers', function() {
     describe('PiPower', function() {
         
         it('should be a function', function() {
-            expect(reverse).to.be.a('function');
+            expect(piPower).to.be.a('function');
+            const handler = piPower()
+            expect(handler).to.be.a('function');
+            expect(handler.name).to.not.be.empty;
         });
 
         it(`should set body context to pi`, async function() {
