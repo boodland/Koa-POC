@@ -1,8 +1,7 @@
 import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
-import { authenticated, reverse, piPower } from '../middleware/Wrappers';
-
+import { MiddlewareHandler } from '../middleware/index';
 
 describe('Server', function() {
 
@@ -46,10 +45,29 @@ describe('Server', function() {
 
 describe('Server With Middlewares', function() {
 
+  const authenticatedMessage = 'Authenticated\n'
+  const authenticatedPipe: MiddlewareHandler = async function random(ctx, next) {
+    if (!ctx.body) ctx.body = '';
+    ctx.body += authenticatedMessage
+    await next();
+  };
+
+  const reverseMessage = 'reverse\n'
+  const reversePipe: MiddlewareHandler = async function random(ctx, next) {
+    if (!ctx.body) ctx.body = '';
+    ctx.body += reverseMessage
+    await next();
+  };
+
+  const piMessage = 'pi\n'
+  const piResponse: MiddlewareHandler = async function random(ctx, next) {
+    if (!ctx.body) ctx.body = '';
+    ctx.body += piMessage
+  };
   describe('Run Server App With Authenticated Middleware', function() {
     const port= 3002;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(authenticated())
+    serverMiddlewareApp.use(authenticatedPipe)
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);
@@ -61,7 +79,7 @@ describe('Server With Middlewares', function() {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(res).to.be.text;
-        expect(res.text).to.be.equal('The user has been authenticated\n');
+        expect(res.text).to.be.equal(authenticatedMessage);
         done();
       })
     });
@@ -79,8 +97,8 @@ describe('Server With Middlewares', function() {
   describe('Run Server App With Authenticated and Reverse Middleware', function() {
     const port= 3003;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(authenticated())
-    serverMiddlewareApp.use(reverse())
+    serverMiddlewareApp.use(authenticatedPipe)
+    serverMiddlewareApp.use(reversePipe)
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);
@@ -92,7 +110,7 @@ describe('Server With Middlewares', function() {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(res).to.be.text;
-        expect(res.text).to.be.equal('The user has been authenticated\nReverse of backwards is sdrawkcab\n');
+        expect(res.text).to.be.equal(authenticatedMessage+reverseMessage);
         done();
       })
     });
@@ -110,9 +128,9 @@ describe('Server With Middlewares', function() {
   describe('Run Server App With Authenticated and PiPower but not Reverse Middleware', function() {
     const port= 3004;
     const serverMiddlewareApp = new ServerApp();
-    serverMiddlewareApp.use(authenticated())
-    serverMiddlewareApp.use(piPower())
-    serverMiddlewareApp.use(reverse())
+    serverMiddlewareApp.use(authenticatedPipe)
+    serverMiddlewareApp.use(piResponse)
+    serverMiddlewareApp.use(reversePipe)
 
     use(require('chai-http'));
     const server = serverMiddlewareApp.run(port);
@@ -124,7 +142,7 @@ describe('Server With Middlewares', function() {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(res).to.be.text;
-        expect(res.text).to.be.equal('The user has been authenticated\nPi to power 1=3.141592653589793');
+        expect(res.text).to.be.equal(authenticatedMessage+piMessage);
         done();
       })
     });
