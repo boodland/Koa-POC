@@ -1,6 +1,6 @@
 import { should, expect, } from 'chai';
 
-import Middleware, { MiddlewareHandler } from './Middleware';
+import Middleware, { MiddlewareWrapper } from './Middleware';
 import { Context } from 'koa';
 
 after(function(done) {
@@ -10,7 +10,7 @@ after(function(done) {
 describe('Middleware', function() {
     
     const defaultMessage = "Hello World!"
-    const fooHandler: MiddlewareHandler = (options=defaultMessage) => {
+    const fooHandler: MiddlewareWrapper = (options=defaultMessage) => {
         
         const configuration = options;
         

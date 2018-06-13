@@ -1,18 +1,18 @@
-import { MiddlewareHandler, MiddlewareFunction } from './Handlers';
+import { MiddlewareWrapper, MiddlewareHandler } from './Handlers';
 
 export default class Middleware {
 
-    private handler: MiddlewareHandler;
+    private handler: MiddlewareWrapper;
     private options: any;
 
-    constructor (handler: MiddlewareHandler, options?: any) {
+    constructor (handler: MiddlewareWrapper, options?: any) {
         this.handler = handler;
         this.options = options;
     };
 
-    getHandler() : MiddlewareFunction {
+    getHandler() : MiddlewareHandler {
         return this.handler(this.options);
     };
 };
 
-export { MiddlewareHandler };
+export { MiddlewareWrapper };
