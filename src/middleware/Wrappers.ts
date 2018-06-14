@@ -17,10 +17,17 @@ const reverse = (text: string = 'backwards'): MiddlewareHandler => {
 };
   
 const piPower = (exponent: number = 1): MiddlewareHandler => {
-  return async function piPower(ctx, next) {
+    return async function piPower(ctx) {
         if (!ctx.body) ctx.body = '';
         ctx.body += `Pi to power ${exponent}=${Math.pow(Math.PI, exponent)}`;
     }
 };
 
-export { MiddlewareHandler, Context, authenticated, piPower, reverse }
+const dummyRouteHandler = (): MiddlewareHandler => {
+    return async function dummyRouteHandler(ctx) {
+        if (!ctx.body) ctx.body = '';
+        ctx.body += `Hello page with url ${ctx.url}`;
+    }
+}
+
+export { MiddlewareHandler, Context, authenticated, piPower, reverse, dummyRouteHandler }
