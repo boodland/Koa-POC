@@ -1,4 +1,4 @@
-import { Middleware as MiddlewareHandler } from 'koa'
+import { Middleware as MiddlewareHandler, Context } from 'koa'
 
 const authenticated = (message: string = 'The user has been authenticated\n'): MiddlewareHandler => {
     return async function random(ctx, next) {
@@ -23,4 +23,4 @@ const piPower = (exponent: number = 1): MiddlewareHandler => {
     }
 };
 
-export { MiddlewareHandler, authenticated, piPower, reverse }
+export { MiddlewareHandler, Context, authenticated, piPower, reverse }
