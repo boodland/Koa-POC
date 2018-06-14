@@ -19,7 +19,6 @@ export default class ServerApp {
     }
 
     run(port: number = 3000): Server {
-        
         this.server = this.app.listen(port)
         return this.server;
     }
