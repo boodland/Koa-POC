@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 
 import { Server } from 'http';
 import { MiddlewareHandler } from '../middleware/index';
+import { Routable } from './../router/index';
 
 export default class ServerApp {
 
@@ -16,6 +17,12 @@ export default class ServerApp {
         middlewares.forEach(middleware => {
             this.app.use(middleware);
         });
+    }
+
+    routes(...routables: Routable[]) {
+        routables.forEach(routable => {
+            this.app.use(routable.getRoutes())
+        })
     }
 
     run(port: number = 3000): Server {

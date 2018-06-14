@@ -1,3 +1,4 @@
+import { Routable } from './../router/types';
 import { should, expect, use, request } from 'chai';
 
 import ServerApp from './ServerApp';
@@ -143,6 +144,49 @@ describe('Server With Middlewares', function() {
         expect(res).to.have.status(200);
         expect(res).to.be.text;
         expect(res.text).to.be.equal(authenticatedMessage+piMessage);
+        done();
+      })
+    });
+
+    after(function() {
+      server.close();
+    })
+
+    after(function(done) {
+      done();
+    });
+
+  });
+
+});
+
+describe('Server With Routes', function() {
+
+  const dummyRoute: Routable = {
+    getRoutes() {
+      return async function random(ctx) {
+        ctx.body = ctx.url;
+      }
+  }
+}
+
+  describe('Run Server App With Dummy Route', function() {
+    const port= 3005;
+    const path= '/dummyPath'
+    const serverRoutesApp = new ServerApp();
+    serverRoutesApp.routes(dummyRoute)
+
+    use(require('chai-http'));
+    const server = serverRoutesApp.run(port);
+
+    it(`should run on localhost:${port}${path}`, function(done) {
+      request(`http://localhost:${port}`)
+      .get(path)
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.be.text;
+        expect(res.text).to.be.equal(path);
         done();
       })
     });
